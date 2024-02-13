@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block page_title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="section container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <h1>Регистрация</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form class="mt-5" action="." method="POST">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <div class="form-group">
+                    <label for="{{field.id_for_label}}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+     .header{
+    visibility: hidden;
+    }
+    h1{
+       font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 45px;
+    line-height: 18px;
+    color: #4F4747;
+    }
+    body{
+    background-color: #e6e6e6;
+    }
+</style>
+
+{% endblock %}

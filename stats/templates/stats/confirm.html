@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block page_title %}Подтверждение{% endblock %}
+
+{% block content %}
+<div class="section container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <h1>Вы уверены?</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form class="mt-5" action="." method="POST">
+                {% csrf_token %}
+
+                <button type="submit" class="btn btn-danger text-white">Да, удалить</button>
+                <a href="javascript:history.back()" class="btn btn-primary">Нет, отмена</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

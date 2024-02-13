@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block page_title %}Статистика{% endblock %}
+
+{% block content %}
+<div class="section container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <h1>Статистика проверок</h1>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <div id="checks-stats-round"></div>
+        </div>
+        <div class="col">
+            <div id="checks-stats-column"></div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <div class="col">
+            <p>
+                Всего проверено: <span class="text-info">{{ news_stats.all }}</span>
+            </p>
+            <p>
+                Фейковых новостей: <span class="text-danger">{{ news_stats.fake }}</span>
+            </p>
+            <p>
+                Не фейковых новостей: <span class="text-success">{{ news_stats.not_fake }}</span>
+            </p>
+            <p>
+                Неопределено: <span class="text-secondary">{{ news_stats.undefined }}</span>
+            </p>
+        </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col">
+            <h1>Статистика подписок</h1>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <div id="subscriptions-stats-round"></div>
+        </div>
+        <div class="col">
+            <div id="subscriptions-stats-column"></div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <div class="col">
+            <p>
+                Всего пользователей: <span class="text-info">{{ subscriptions_stats.all }}</span>
+            </p>
+            <p>
+                Подписанные пользователи: <span class="text-danger">{{ subscriptions_stats.subscribed }}</span>
+            </p>
+            <p>
+                Не подписанные пользователи: <span class="text-success">{{ subscriptions_stats.not_subscribed }}</span>
+            </p>
+        </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.load('current', {'packages':['bar']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+
+    // Checks round
+    var data = google.visualization.arrayToDataTable([
+      ['Task', 'Checks'],
+      ['Fake', {{ news_stats.fake }}],
+      ['Not fake', {{ news_stats.not_fake }}],
+      ['Undefined', {{ news_stats.undefined }}],
+    ]);
+    var options = {
+      title: 'Статистика проверок'
+    };
+    var chart = new google.visualization.PieChart(document.getElementById('checks-stats-round'));
+    chart.draw(data, options);
+
+    // Checks column
+    data = google.visualization.arrayToDataTable([
+      ['Статистика проверок', 'Количество'],
+      ['Fake', {{ news_stats.fake }}],
+      ['Not fake', {{ news_stats.not_fake }}],
+      ['Undefined', {{ news_stats.undefined }}],
+    ]);
+    options = {
+      title: 'Статистика проверок'
+    };
+    chart = new google.charts.Bar(document.getElementById('checks-stats-column'));
+    chart.draw(data);
+
+    // Subscriptions round
+    data = google.visualization.arrayToDataTable([
+      ['Task', 'Subscriptions'],
+      ['Subscribed', {{ subscriptions_stats.subscribed }}],
+      ['Not subscribed', {{ subscriptions_stats.not_subscribed }}],
+    ]);
+    options = {
+      title: 'Статистика подписок'
+    };
+    chart = new google.visualization.PieChart(document.getElementById('subscriptions-stats-round'));
+    chart.draw(data, options);
+
+    // Checks column
+    data = google.visualization.arrayToDataTable([
+      ['Статистика подписок', 'Количество'],
+      ['Subscribed', {{ subscriptions_stats.subscribed }}],
+      ['Not subscribed', {{ subscriptions_stats.not_subscribed }}],
+    ]);
+
+    chart = new google.charts.Bar(document.getElementById('subscriptions-stats-column'));
+    chart.draw(data);
+  }
+</script>
+{% endblock %}

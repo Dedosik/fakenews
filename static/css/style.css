@@ -1,0 +1,25 @@
+ul {
+    list-style: none;
+}
+
+h1 {
+    text-align: center;
+}
+
+.section {
+    padding: 50px;
+}
+
+.header {
+    padding: 50px;
+}
+
+.header-menu a {
+    color: white;
+}
+
+.header-menu__item_right {
+    margin-left: auto;
+}
+
+

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="section container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <h1>{{ page_title }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form class="mt-5" action="." method="POST">
+                {% csrf_token %}
+
+                {% for field in user_form %}
+                {% if forloop.counter == 4 %}
+                <div class="form-group">
+                    <label for="{{profile_form.middle_name.id_for_label}}">{{ profile_form.middle_name.label }}</label>
+                    {{ profile_form.middle_name }}
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="{{field.id_for_label}}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+                {% endfor %}
+                <div class="form-group">
+                    <label for="{{profile_form.free_checks.id_for_label}}">{{ profile_form.free_checks.label }}</label>
+                    {{ profile_form.free_checks }}
+                </div>
+                <div class="form-group">
+                    <label for="{{profile_form.subscribed.id_for_label}}">{{ profile_form.subscribed.label }}</label>
+                    {{ profile_form.subscribed }}
+                </div>
+                <button type="submit" class="btn btn-primary text-white">{{ submit }}</button>
+                <a href="{% url 'users-delete' cur_user.pk %}" class="btn btn-danger text-white">Удалить</a>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <h2>Статистика проверок</h2>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="col">
+            <p>
+                Всего проверено: <span class="text-info">{{ stats.all }}</span>
+            </p>
+            <p>
+                Фейковых новостей: <span class="text-danger">{{ stats.fake }}</span>
+            </p>
+            <p>
+                Не фейковых новостей: <span class="text-success">{{ stats.not_fake }}</span>
+            </p>
+        </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <a href="{% url 'users-checks-pdf' %}?user={{ cur_user.pk }}" class="btn btn-primary">Скачать отчет</a>
+    </div>
+</div>
+{% endblock %}

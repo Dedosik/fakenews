@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="section container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <h1>{{ page_title }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form class="mt-5" action="." method="POST">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <div class="form-group">
+                    <label for="{{field.id_for_label}}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">{{ submit }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

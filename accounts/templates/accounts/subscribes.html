@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block page_title %}Подписки{% endblock %}
+
+{% block content %}
+<div class="section container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <h1>Подписки</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-3 pt-5 p-5 border border-secondary rounded">
+            <h2 class="text-center">Standart</h2>
+            <p class="mt-3 text-secondary">100 проверок в месяц</p>
+            <a href="{% url 'subscribe' %}" id="subscribe" class="btn btn-info mt-5 w-100">Оформить</a>
+        </div>
+    </div>
+</div>
+<script>
+    $("#subscribe").click(function(e) {
+        e.preventDefault()
+        let url = $(this).attr("href")
+        $.get(url, function(data){
+            window.location.href = "{% url 'profile' %}"
+        })
+
+    })
+</script>
+{% endblock %}

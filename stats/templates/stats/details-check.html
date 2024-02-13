@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<div class="section container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <h1>{{ object.title }}</h1>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            {{ object.body }}
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            {{ object.created|date:"Y:m:d H:i" }}
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            {% if object.is_fake %}
+            <strong class="text-danger">ФЕЙК</strong>
+            {% else %}
+            <strong class="text-success">НЕ ФЕЙК</strong>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <a href="{% url 'users-edit' object.user.id %}">{{ object.user.username }}</a>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <a href="{% url 'checks-delete' object.pk %}" class="btn btn-danger">Удалить</a>
+        </div>
+    </div>
+
+</div>
+<script>
+
+</script>
+{% endblock %}
